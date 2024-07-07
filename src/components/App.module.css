@@ -5,8 +5,7 @@
     ),
     url("../img/bg.jpg");
   background-repeat: no-repeat;
-  background-size: 100%;
-  object-fit: cover;
+  background-size: cover;
   padding: 10px;
   padding-top: 50px;
   width: 100%;
