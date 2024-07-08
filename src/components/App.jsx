@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import Description from './Description/Description';
-import Option from "./Option/Option";
+import Options from "./Options/Options";
 import Feedback from "./Feedback/Feedback";
 import Notification from "./Notification/Notification";
 
@@ -35,7 +35,7 @@ const App = () => {
   return (
       <div className={s.container}>
           <Description />
-          <Option updateFeedback={updateFeedback} resetFeedback={resetFeedback} totalFeedback={totalFeedback} />
+          <Options updateFeedback={updateFeedback} resetFeedback={resetFeedback} totalFeedback={totalFeedback} />
           {totalFeedback > 0 ? (
             <Feedback 
               feedback={feedback} 
@@ -43,7 +43,7 @@ const App = () => {
               positiveFeedbackPercentage={positiveFeedbackPercentage} 
             />
           ) : (
-            <Notification message="No feedback given" />
+            <Notification />
           )}
       </div>
   );
