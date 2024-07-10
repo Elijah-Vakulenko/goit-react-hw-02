@@ -8,15 +8,15 @@ import Notification from "./Notification/Notification";
 import s from './App.module.css';
 
 const App = () => {
-  const [feedback, setFeedback] = useState({
+  const [feedback, setFeedback] = useState({ //← через ctrl + space імпортую стейт
     good: 0,
-    neutral: 0,
+    neutral: 0, // ← Встановлюю початкове значення лічильника передаючи значення в хук
     bad: 0
   });
 
-  const updateFeedback = feedbackType => {
-    setFeedback(prevFeedback => ({
-      ...prevFeedback,
+  const updateFeedback = feedbackType => { // фідбек тайп це одна з кнопок яку ми вибираємо з Options.jsx (7-9) тицьнув на неї ми передаємо у функцію цей тип
+    setFeedback(prevFeedback => ({ //далі міняємо значення за яке відповідає ця кнопка (превФідбек це попереднє значення до того як ми клацнули)
+      ...prevFeedback, //того ми беремо це значення, копіюємо його
       [feedbackType]: prevFeedback[feedbackType] + 1
     }));
   };
@@ -24,7 +24,7 @@ const App = () => {
   const resetFeedback = () => {
     setFeedback({
       good: 0,
-      neutral: 0,
+      neutral: 0, //← обнуляю лічильник
       bad: 0
     });
   };
@@ -36,11 +36,11 @@ const App = () => {
       <div className={s.container}>
           <Description />
           <Options updateFeedback={updateFeedback} resetFeedback={resetFeedback} totalFeedback={totalFeedback} />
-          {totalFeedback > 0 ? (
+          {totalFeedback > 0 ? ( //← якщо загальна кількість відгуків більша ніж нуль то за тернарним виразом виводимо Статистику по відгукам, якщо нуль тоді виводимо компонент з нотифікацією.
             <Feedback 
-              feedback={feedback} 
-              totalFeedback={totalFeedback} 
-              positiveFeedbackPercentage={positiveFeedbackPercentage} 
+              feedback={feedback} // передаю компоненту фідбек пропс у вигляді нашого хука (11)
+              totalFeedback={totalFeedback} // передаю пропс загальну кількість відгуків (32)
+              positiveFeedbackPercentage={positiveFeedbackPercentage} // пропс (33)
             />
           ) : (
             <Notification />
