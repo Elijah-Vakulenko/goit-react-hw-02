@@ -1,9 +1,11 @@
-import React from 'react';
+
 
 import s from './Feedback.module.css'
 
 const Feedback = ({ feedback, totalFeedback, positiveFeedbackPercentage }) => { // компонент приймає пропси з App.jsx
   const { good, neutral, bad } = feedback;
+
+
 
   return (
       <div>

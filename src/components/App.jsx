@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Description from './Description/Description';
 import Options from "./Options/Options";
@@ -8,17 +8,21 @@ import Notification from "./Notification/Notification";
 import s from './App.module.css';
 
 const App = () => {
-  const [feedback, setFeedback] = useState({ //← через ctrl + space імпортую стейт
-    good: 0,
-    neutral: 0, // ← Встановлюю початкове значення лічильника передаючи значення в хук
-    bad: 0
+  const [feedback, setFeedback] = useState(() => {
+    const savedFeedback = localStorage.getItem('feedback');
+    return savedFeedback ? JSON.parse(savedFeedback) : { good: 0, neutral: 0, bad: 0 };
   });
+
+  useEffect(() => {
+    localStorage.setItem('feedback', JSON.stringify(feedback));
+  }, [feedback]);
 
   const updateFeedback = feedbackType => { // фідбек тайп це одна з кнопок яку ми вибираємо з Options.jsx (7-9) тицьнув на неї ми передаємо у функцію цей тип
     setFeedback(prev => ({ //далі міняємо значення за яке відповідає ця кнопка (прев це попереднє значення до того як ми клацнули)
       ...prev, //того ми беремо це значення, копіюємо його
       [feedbackType]: prev[feedbackType] + 1//тепер ми беремо ключ і значення нашого об'єету і збільшуємо на 1. тобто [той тип який ми обрали клацнувши на кнопку, наприклад good]: prev[минуле значення цього типу] + 1
     }));
+    
   };
 
   const resetFeedback = () => {
